@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.functions.Action0;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * RXJAVA 一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库
@@ -226,6 +230,69 @@ public class MainActivity extends AppCompatActivity {
         Observable.just("Hello", "World").subscribe(onNextAction, onErrorAction);
         //使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
         Observable.just("Hello", "World").subscribe(onNextAction, onErrorAction, onCompletedAction);
+
+    }
+
+    /**
+     * Map使用：对数据进行转换
+     * @param view
+     */
+    public void test5(View view){
+        final List list=new ArrayList();
+        Student student1=new Student();
+        Student student2=new Student();
+        Student student3=new Student();
+        student1.setName("student1");
+        student2.setName("student2");
+        student3.setName("student3");
+        Observable.just(student1, student2, student2)
+                //使用map进行转换，参数1：转换前的类型，参数2：转换后的类型
+                .map(new Func1<Student, String>() {
+                    @Override
+                    public String call(Student i) {
+                        String name = i.getName();//获取Student对象中的name
+                        return name;//返回name
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        list.add(s);
+                        content.setText(list.toString());
+                    }
+                });
+
+
+
+    }
+
+    /**
+     * 多次是使用Map进行数据转换
+     * @param view
+     */
+    public void test6(View view){
+        //多次使用map，想用几个用几个
+        Observable.just("Hello", "World")
+                .map(new Func1<String, Integer>() {//将String类型的转化为Integer类型的哈希码
+                    @Override
+                    public Integer call(String s) {
+                        return s.hashCode();
+                    }
+                })
+                .map(new Func1<Integer, String>() {//将转化后得到的Integer类型的哈希码再转化为String类型
+                    @Override
+                    public String call(Integer integer) {
+                        return integer.intValue() + "";
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+//                        Log.i(TAG, s);
+                        content.setText(content.getText()+"=="+s);
+                    }
+                });
+
 
     }
 }
