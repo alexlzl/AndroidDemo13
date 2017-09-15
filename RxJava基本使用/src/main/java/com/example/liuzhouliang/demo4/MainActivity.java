@@ -1,5 +1,6 @@
 package com.example.liuzhouliang.demo4;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -76,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
         mError = (TextView) findViewById(R.id.error);
         imageview = (ImageView) findViewById(R.id.iv);
 
+    }
+
+    public void test0(View view){
+        Intent intent=new Intent(this,Main2Activity.class);
+        startActivity(intent);
     }
 
     /**

@@ -4,9 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidDemo13.iml" filepath="$PROJECT_DIR$/AndroidDemo13.iml" />
       <module fileurl="file://$PROJECT_DIR$/Demo4.iml" filepath="$PROJECT_DIR$/Demo4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RxJava/RxJava.iml" filepath="$PROJECT_DIR$/RxJava/RxJava.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RxJava/RxJava.iml" filepath="$PROJECT_DIR$/RxJava/RxJava.iml" />
       <module fileurl="file://$PROJECT_DIR$/RxJava1/RxJava1.iml" filepath="$PROJECT_DIR$/RxJava1/RxJava1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RxJava基本使用/RxJava基本使用.iml" filepath="$PROJECT_DIR$/RxJava基本使用/RxJava基本使用.iml" />
     </modules>
   </component>
 </project>
