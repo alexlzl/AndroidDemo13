@@ -1,26 +1,37 @@
 package com.example.liuzhouliang.demo4;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * RXJAVA 一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库
  * <p>
- * <p>
+ * <p>由Observable发起事件，经过中间的处理后由Observer消费
  * 优点
  * <p>
  * RxJava的好处就在于它的简洁性，逻辑简单的时候看不出RxJava的优势，想必大家都知道在调度过程比较复杂的情况下，异步代码经常会既难写也难被读懂。这时候RxJava的优势就来了，随着程序逻辑变得越来越复杂，它依然能够保持简洁。
@@ -53,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView content;
     private TextView mComplete;
     private TextView mError;
+    private String url = "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3165960808,845187397&fm=27&gp=0.jpg";
+    private ImageView imageview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         content = (TextView) findViewById(R.id.content);
         mComplete = (TextView) findViewById(R.id.complete);
         mError = (TextView) findViewById(R.id.error);
+        imageview = (ImageView) findViewById(R.id.iv);
 
     }
 
@@ -150,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 subscriber.onStart();
                 subscriber.onNext("subscriber第一次传递内容==1");
                 subscriber.onNext("subscriber第二次传递内容====2");
-//                subscriber.onStart();
+                //                subscriber.onStart();
                 subscriber.onCompleted();
             }
         });
@@ -194,14 +208,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * 定义三个对象，分别打包onNext(obj)、onError(error) 、onCompleted()。
+     *
      * @param view
      */
     public void test4(View view) {
 
 
-//        Observable observable = Observable.just("Hello", "World");
+        //        Observable observable = Observable.just("Hello", "World");
         //处理onNext()中的内容
         Action1<String> onNextAction = new Action1<String>() {
             @Override
@@ -235,13 +249,14 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Map使用：对数据进行转换
+     *
      * @param view
      */
-    public void test5(View view){
-        final List list=new ArrayList();
-        Student student1=new Student();
-        Student student2=new Student();
-        Student student3=new Student();
+    public void test5(View view) {
+        final List list = new ArrayList();
+        Student student1 = new Student();
+        Student student2 = new Student();
+        Student student3 = new Student();
         student1.setName("student1");
         student2.setName("student2");
         student3.setName("student3");
@@ -263,14 +278,14 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
     }
 
     /**
      * 多次是使用Map进行数据转换
+     *
      * @param view
      */
-    public void test6(View view){
+    public void test6(View view) {
         //多次使用map，想用几个用几个
         Observable.just("Hello", "World")
                 .map(new Func1<String, Integer>() {//将String类型的转化为Integer类型的哈希码
@@ -288,11 +303,223 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-//                        Log.i(TAG, s);
-                        content.setText(content.getText()+"=="+s);
+                        //                        Log.i(TAG, s);
+                        content.setText(content.getText() + "==" + s);
                     }
                 });
 
 
+    }
+
+    /**
+     * Describe:flatMap是一个比教难理解的一个转换，在这里先假设一个需求，需要打印多个Student所学的课程。这跟之前获取Student的name又不同了，这里先确定一下关系，一个Student类中只有一个name，而一个Student却有多门课程（Course），Student我们可以理解成这样：
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/15 10:34
+     */
+    public void test7(View view) {
+        //        List<Student> students = new ArrayList<Student>();
+        Student[] students = new Student[1];
+        Student student = new Student();
+        student.setName("alex");
+        student.setAge(100);
+        List<Course> courses = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Course course = new Course();
+            if (i == 0)
+                course.setName("语文");
+            course.setId("100");
+            if (i == 1)
+                course.setName("数学");
+            course.setId("100");
+            if (i == 2)
+                course.setName("化学 ");
+            course.setId("100");
+            courses.add(course);
+        }
+
+        student.setCourses(courses);
+        //        students.add(student);
+        students[0] = student;
+
+        Action1<List<Course>> action1 = new Action1<List<Course>>() {
+            @Override
+            public void call(List<Course> courses) {
+                //遍历courses，输出cuouses的name
+                for (int i = 0; i < courses.size(); i++) {
+                    Log.i(TAG, courses.get(i).getName());
+                    content.setText(content.getText() + "==" + courses.get(i).getName());
+                }
+            }
+        };
+        Observable.from(students)
+                .map(new Func1<Student, List<Course>>() {
+                    @Override
+                    public List<Course> call(Student student) {
+                        //返回coursesList
+                        return student.getCourses();
+                    }
+                })
+                .subscribe(action1);
+
+
+    }
+
+    /**
+     * Describe:其他操作符
+     * <p>
+     * 除了map和flatMap之外，还有其他操作符以供使用。这里就不一一列举他们的用法了，其他常用的操作符如下：
+     * <p>
+     * filter：集合进行过滤
+     * each：遍历集合
+     * take：取出集合中的前几个
+     * skip：跳过前几个元素
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/15 11:55
+     */
+
+    public void test8(View view) {
+        //        List<Student> students = new ArrayList<Student>();
+        Student[] students = new Student[1];
+        Student student = new Student();
+        student.setName("alex");
+        student.setAge(100);
+        List<Course> courses = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Course course = new Course();
+            if (i == 0)
+                course.setName("语文");
+            course.setId("100");
+            if (i == 1)
+                course.setName("数学");
+            course.setId("100");
+            if (i == 2)
+                course.setName("化学 ");
+            course.setId("100");
+            courses.add(course);
+        }
+
+        student.setCourses(courses);
+        //        students.add(student);
+        students[0] = student;
+        Observable.from(students)
+                .flatMap(new Func1<Student, Observable<Course>>() {
+                    @Override
+                    public Observable<Course> call(Student student) {
+                        return Observable.from(student.getCourses());
+                    }
+                })
+                .subscribe(new Action1<Course>() {
+                    @Override
+                    public void call(Course course) {
+                        Log.i(TAG, course.getName());
+                        content.setText(content.getText() + "==" + course.getName());
+                    }
+                });
+
+
+    }
+
+    /**
+     * Describe:RxJava在不指定线程的情况下，发起时间和消费时间默认使用当前线程。所以之前的做法
+     * <p>
+     * 因为是在主线程中发起的，所以不管中间map的处理还是Action1的执行都是在主线程中进行的。若是map中有耗时的操作，这样会导致主线程拥塞，这并不是我们想看到的。
+     * <p>
+     * Scheduler：线程控制器，可以指定每一段代码在什么样的线程中执行。
+     * 模拟一个需求：新的线程发起事件，在主线程中消费
+     * <p>
+     * subscribeOn()：指定subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。
+     * observeOn()：指定Subscriber 所运行在的线程。或者叫做事件消费的线程。
+     * <p>
+     * 以及参数Scheduler，RxJava已经为我们提供了一下几个Scheduler
+     * <p>
+     * Schedulers.immediate()：直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。
+     * Schedulers.newThread()：总是启用新线程，并在新线程执行操作。
+     * Schedulers.io()： I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程。
+     * Schedulers.computation()：计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。
+     * AndroidSchedulers.mainThread()：它指定的操作将在 Android 主线程运行。
+     * Author:
+     * <p>
+     * Time:2017/9/15 14:12
+     */
+    public void test9(View view) {
+        Observable.just("Hello", "Word")
+                .subscribeOn(Schedulers.newThread())//指定 subscribe() 发生在新的线程
+                .observeOn(AndroidSchedulers.mainThread())// 指定 Subscriber 的回调发生在主线程
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.i(TAG, s);
+                        content.setText(content.getText() + "==" + s);
+                    }
+                });
+
+
+    }
+
+    /**
+     * Describe:若将observeOn(AndroidSchedulers.mainThread())去掉会怎么样？不为消费事件show(s)指定线程后，show(s)会在那里执行？
+     * 其实，observeOn() 指定的是它之后的操作所在的线程。也就是说，map的处理和最后的消费事件show(s)都会在io线程中执行。
+     * observeOn()可以多次使用，可以随意变换线程
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/15 14:59
+     */
+    public void test10(View view) {
+        Observable.just("Hello", "Wrold")
+                .subscribeOn(Schedulers.newThread())//指定：在新的线程中发起
+                .observeOn(Schedulers.io())         //指定：在io线程中处理
+                .map(new Func1<String, String>() {
+                    @Override
+                    public String call(String s) {
+                        return s + "add====";       //处理数据
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())//指定：在主线程中处理
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        content.setText("切换到主线程==" + s);                   //消费事件
+                    }
+                });
+
+
+    }
+
+    public void test11(View view) {
+        Observable.create(new Observable.OnSubscribe<Bitmap>() {
+            @Override
+            public void call(final Subscriber<? super Bitmap> subscriber) {
+                OkHttpClient client = new OkHttpClient();
+                client.newCall(new Request.Builder().url(url).build())
+                        .enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Request request, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Response response) throws IOException {
+                                byte[] data = response.body().bytes();
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                subscriber.onNext(bitmap);
+                                subscriber.onCompleted();
+                            }
+
+
+                        });
+            }
+        }).subscribeOn(Schedulers.io())//工作线程中进行图片下载
+                .observeOn(AndroidSchedulers.mainThread())//主线程中进行视图刷新
+                .subscribe(new Action1<Bitmap>() {
+                    @Override
+                    public void call(Bitmap bitmap) {
+                        imageview.setImageBitmap(bitmap);
+                    }
+                });
     }
 }
