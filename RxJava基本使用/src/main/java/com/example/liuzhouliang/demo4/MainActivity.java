@@ -645,4 +645,139 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Describe:当然你也可以知道调度器。其中，第一个是start，第二个参数是count，比如例子的意思就是从10开始，生产5个连续的int，就是10,11,12,13,14
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/18 15:40
+     */
+    public void test15(View view) {
+        Observable.range(10, 5).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer o) {
+
+                content.setText(content.getText().toString() + o + "===");
+                Log.e(TAG, o + "");
+            }
+
+
+        });
+
+        Observable.range(10, 2).repeat(4).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                content.setText(content.getText().toString() + integer + "repeat===");
+                Log.e(TAG, "repeat===" + integer.toString());
+            }
+        });
+    }
+
+    /**
+     * Describe:用于延迟多久之后开始某动作
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/18 15:48
+     */
+    public void test16(View view) {
+        Log.e(TAG, "开始===");
+        Observable.timer(2, TimeUnit.SECONDS, Schedulers.newThread()).subscribe(new Action1<Long>() {
+            @Override
+            public void call(Long aLong) {
+                Log.e(TAG, "接受到回调====");
+                Log.e(TAG, aLong.toString());
+            }
+        });
+    }
+
+    /**
+     *他的使用就是你需要返回一个Observable对象，但是这个对象又不能为空，又不能去处理事情的时候就可以使用。
+     *
+     * Observable.empty(); //用来发送不发射任何数据的但是正常结束的Observable
+     Observable.never();// 不发射数据也不终止
+     Observable.error(new Throwable());// 发射一个错误
+     */
+
+    /**
+     * map========================
+
+     转换对象的时候使用，就是把一个Observable装换为另外一个Observable，例子
+
+     Observable.just("A").map(new Func1() {
+    @Override public Integer call(String s) {
+    return s.hashCode();
+    }
+    }).subscribe(new Action1() {
+    @Override public void call(Integer integer) {
+
+    }
+    });
+     从这个例子我们就可以看出，这里是把一个关于String的Observable变换为了一个关于Integer的Observable，最后让被观察者得到。
+     map适合的范围是1对1的装换，不适合一对多的装换。
+     */
+
+
+    /**
+     * flatMap
+     * <p>
+     * 一对多的转换，他的一版使用场景就是，比如去除for循环(map也行)，比如需要把从一个对象去除它包含的List子对象然后迭代等，例子：
+     * <p>
+     * 一个对象A中，包含了一个List ，现在需要取出B
+     * 代码：
+     * <p>
+     * Observable.just(test).flatMap(new Func1>() {
+     *
+     * @Override public Observable call(Test test) {
+     * return Observable.from(test.list);
+     * }
+     * }).subscribe(new Action1() {
+     * @Override public void call(String s) {
+     * Log.i(TAG, s+"---FlatMap");
+     * }
+     * });
+     */
+
+    /**
+     * Describe:过滤操作符:符合某种规则的Observable才会向下传递，例子
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/18 16:13
+     */
+    public void test17(View view) {
+        Observable.range(100, 10).filter(new Func1<Integer, Boolean>() {
+            @Override
+            public Boolean call(Integer integer) {
+                return integer > 105;
+            }
+        }).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                content.setText(content.getText().toString() + integer + "==");
+            }
+        });
+    }
+        /**
+         * Describe:只发射第一项，或者是满足条件的第一项，两个例子
+         *
+         * Author:
+         *
+         * Time:2017/9/18 16:16
+         */
+    public void test18(View view) {
+        Observable.range(100, 5).first();// 发射100
+        Observable.range(100, 5).first(new Func1<Integer, Boolean>() {
+            @Override
+            public Boolean call(Integer integer) {
+                return integer > 102;//发射103
+            }
+        }).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                content.setText(content.getText().toString() + integer + "==");
+            }
+        });
+    }
 }

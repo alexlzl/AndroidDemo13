@@ -126,5 +126,25 @@
             android:layout_height="wrap_content"
             android:onClick="test14"
             android:text="Interval操作"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test15"
+            android:text="range操作"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test16"
+            android:text="timer操作"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test17"
+            android:text="filter操作"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test18"
+            android:text="first操作"/>
     </LinearLayout>
 </ScrollView>
