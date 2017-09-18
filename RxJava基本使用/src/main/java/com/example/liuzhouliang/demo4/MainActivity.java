@@ -19,13 +19,16 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -46,6 +49,7 @@ import rx.schedulers.Schedulers;
  * 在上面介绍了观察者模式，这里也将RxJava中的三个角色进行一下角色分配
  * <p>
  * 观察者：Observer；
+ * 观察者:Subscriber,继承自Observer，一般使用这个
  * 被观察者：Observable；
  * 订阅（或注册）：subscribe()。
  * <p>
@@ -79,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void test0(View view){
-        Intent intent=new Intent(this,Main2Activity.class);
+    public void test0(View view) {
+        Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
     }
 
@@ -206,10 +210,33 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void call(String s) {
                         Toast.makeText(MainActivity.this, s, Toast.LENGTH_LONG).show();
-                        content.setText(s);
+                        content.setText(content.getText().toString() + "==" + s);
                     }
                 });
+        /**
+         *  MainActivity: A
+         *  MainActivity: B
+         *  MainActivity: C
+         *  MainActivity: onCompleted
+         */
+        Observable.just("A", "B", "C").subscribe(new Subscriber() {
+            @Override
+            public void onCompleted() {
+                Log.i(TAG, "onCompleted");
+            }
 
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.i(TAG, o.toString());
+            }
+
+
+        });
 
     }
 
@@ -359,6 +386,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        /**
+         *  from
+         *  接收一个Iterable对象(集合List)或者是数组对象，或者是一个线程的Future，
+         */
         Observable.from(students)
                 .map(new Func1<Student, List<Course>>() {
                     @Override
@@ -527,5 +558,91 @@ public class MainActivity extends AppCompatActivity {
                         imageview.setImageBitmap(bitmap);
                     }
                 });
+    }
+
+    /**
+     * Describe:from
+     * 接收一个Iterable对象(集合List)或者是数组对象，或者是一个线程的Future，例子如下
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/18 12:14
+     */
+    public void test12(View view) {
+        Observable.from(new String[]{"A", "B", "C", "D"}).subscribe(new Action1<String>() {
+            @Override
+            public void call(String o) {
+                content.setText(content.getText().toString() + "==" + o);
+            }
+
+
+        });
+    }
+
+    /**
+     * Describe:Defer   直到有订阅者倍subscribe的时候才会创建
+     * <p>
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/18 14:10
+     */
+    String str = "Hello，RxJava";
+    String str1 = "Hello，RxJava";
+
+    public void test13(View view) {
+        str = "Hello，RxJava";
+        Observable o = Observable.just(str);
+        str = "Hello，RxJava====重新赋值";//在此处如果对str重新赋值,再进行订阅，消费者仍然接受到的是开始的值“Hello，RxJava”，如果想改变消费者接受的值可以调用defer进行消息发射
+        o.subscribe(new Action1<String>() {
+            @Override
+            public void call(String str) {
+                Log.e(TAG, "Action1 执行call====" + str);
+            }
+        });
+
+        /**
+         * =================================
+         */
+        Observable observable = Observable.defer(new Func0<Observable<String>>() {
+            @Override
+            public Observable call() {
+                Log.e(TAG, " defer==执行call====");
+                return Observable.just(str1);
+            }
+        });
+        str1 = "hi，RxJava===defer";
+
+        observable.subscribe(new Action1<String>() {
+
+            @Override
+            public void call(String s) {
+                content.setText(s);
+                Log.e(TAG, " defer==执行subscribe====" + s);
+            }
+        });
+    }
+
+    /**
+     * Scheduler ，就可以使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制了。 * subscribeOn(): 指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。 * observeOn(): 指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。
+     */
+    Subscription sub;
+
+    public void test14(View view) {
+        sub = Observable.interval(1, 1, TimeUnit.SECONDS, Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Long>() {
+
+            @Override
+            public void call(Long aLong) {
+                Log.e(TAG, String.valueOf(aLong));
+                content.setText(content.getText() + aLong.toString() + "==");
+                if (aLong == 5) {
+                    if (!sub.isUnsubscribed()) {
+                        sub.unsubscribe();
+                    }
+
+                    Toast.makeText(MainActivity.this, "取消订阅", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

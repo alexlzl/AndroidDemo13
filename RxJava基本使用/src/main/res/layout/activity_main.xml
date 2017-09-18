@@ -111,5 +111,20 @@
             android:layout_height="wrap_content"
             android:onClick="test11"
             android:text="线程切换3"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test12"
+            android:text="from操作"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test13"
+            android:text="Defer操作"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="test14"
+            android:text="Interval操作"/>
     </LinearLayout>
 </ScrollView>
