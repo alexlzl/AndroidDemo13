@@ -18,35 +18,35 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        textViewX= (TextView) findViewById(R.id.x);
-        textViewY= (TextView) findViewById(R.id.y);
-        status= (TextView) findViewById(R.id.statusbar_tv);
-        button= (TextView) findViewById(R.id.button);
-        textViewGetX= (TextView) findViewById(R.id.getx);
+        textViewX = (TextView) findViewById(R.id.x);
+        textViewY = (TextView) findViewById(R.id.y);
+        status = (TextView) findViewById(R.id.statusbar_tv);
+        button = (TextView) findViewById(R.id.button);
+        textViewGetX = (TextView) findViewById(R.id.getx);
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                textViewX.setText("rawx=="+motionEvent.getRawX());
-                textViewY.setText("rawy=="+motionEvent.getRawY());
+                textViewX.setText("rawx==" + motionEvent.getRawX());
+                textViewY.setText("rawy==" + motionEvent.getRawY());
                 return true;
             }
         });
         textViewGetX.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                textViewX.setText("rawx=="+event.getX());
-                textViewY.setText("rawy=="+event.getY());
+                textViewX.setText("rawx==" + event.getX());
+                textViewY.setText("rawy==" + event.getY());
                 return false;
             }
         });
-        textViewX.getX();
-        textViewX.getScrollX();
+
     }
 
-    public void getStatusH(View view){
-        TextView textView= (TextView) view;
-        textView.setText("状态栏高度==="+getStatusBarHeight(this)+"");
+    public void getStatusH(View view) {
+        TextView textView = (TextView) view;
+        textView.setText("状态栏高度===" + getStatusBarHeight(this) + "");
     }
+
     private int getStatusBarHeight(Context context) {
 
         int statusBarHeight1 = -1;
@@ -57,5 +57,39 @@ public class Main2Activity extends AppCompatActivity {
             statusBarHeight1 = context.getResources().getDimensionPixelSize(resourceId);
         }
         return statusBarHeight1;
+    }
+
+    public void test1(View view) {
+        textViewX.setText("getx==" + textViewGetX.getX());
+        textViewY.setText("gety==" + textViewGetX.getY());
+    }
+
+
+    /**
+     * Describe:Sets the horizontal location of this view relative to its {@link #getLeft() left} position.
+     * This effectively positions the object post-layout, in addition to wherever the object's
+     * layout placed it.
+     *
+     * @param translationX The horizontal position of this view relative to its left position,
+     * in pixels.
+     * <p>
+     * Author:
+     * <p>
+     * Time:2017/9/22 17:51
+     */
+    int i = 0;
+
+    public void test2(View view) {
+
+        i += 20;
+        textViewGetX.setTranslationX(i);
+    }
+
+    int a = 0;
+
+    public void test3(View view) {
+
+        a += 20;
+        textViewGetX.scrollBy(10, 10);
     }
 }
