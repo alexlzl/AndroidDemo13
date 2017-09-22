@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/RxJava1" />
             <option value="$PROJECT_DIR$/RxJava基本使用" />
+            <option value="$PROJECT_DIR$/View坐标" />
+            <option value="$PROJECT_DIR$/View相关" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

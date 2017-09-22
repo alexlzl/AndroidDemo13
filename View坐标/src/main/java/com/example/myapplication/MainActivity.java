@@ -10,7 +10,7 @@ import android.widget.TextView;
 
  调用public void offsetLeftAndRight(int offset)用于左右移动方法或public void offsetTopAndBottom(int offset)用于上下移动。
 
- 如：button.offsetLeftAndRignt(300)表示将button控件向左移动300个像素。
+ 如：button.offsetLeftAndRight(300)表示将button控件向左移动300个像素。
 
 
  scrollTo(int x, int y) 是将View中内容滑动到相应的位置，参考的坐标系原点为parent View的左上角。
