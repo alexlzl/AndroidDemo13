@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidDemo13.iml" filepath="$PROJECT_DIR$/AndroidDemo13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Canvas相关/Canvas相关.iml" filepath="$PROJECT_DIR$/Canvas相关/Canvas相关.iml" />
       <module fileurl="file://$PROJECT_DIR$/Demo4.iml" filepath="$PROJECT_DIR$/Demo4.iml" />
       <module fileurl="file://$PROJECT_DIR$/RxJava1/RxJava1.iml" filepath="$PROJECT_DIR$/RxJava1/RxJava1.iml" />
       <module fileurl="file://$PROJECT_DIR$/RxJava基本使用/RxJava基本使用.iml" filepath="$PROJECT_DIR$/RxJava基本使用/RxJava基本使用.iml" />
