@@ -1,0 +1,24 @@
+#Internal package file, do not edit.
+#Tue Sep 26 18:18:03 CST 2017
+2.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+5.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_86de50c47fca8081ef8ac9a3df4ca220cd755006\\classes.dex
+5.set=DEX
+3.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6b4241fbd6098e1be77afb43e61b2384750dd43a
+6.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+2.set=ANDROID_RESOURCE
+4.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+count=7
+0.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_main.xml
+5.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_86de50c47fca8081ef8ac9a3df4ca220cd755006
+4.set=ANDROID_RESOURCE
+6.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+1.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\res\\menu\\main.xml
+1.set=ANDROID_RESOURCE
+2.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\ic_launcher.png
+6.set=ANDROID_RESOURCE
+0.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+3.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6b4241fbd6098e1be77afb43e61b2384750dd43a\\classes.dex
+3.set=DEX
+1.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+4.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+0.set=ANDROID_RESOURCE

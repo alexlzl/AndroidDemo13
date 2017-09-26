@@ -1,0 +1,4 @@
+#Tue Sep 26 18:18:03 CST 2017
+base.0=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-v4-18.0.0_9932ba34852d2cc39b659aa4839eb191ea5d84ca
+renamed.0=classes.dex
+file.0=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-v4-18.0.0_9932ba34852d2cc39b659aa4839eb191ea5d84ca\\classes.dex

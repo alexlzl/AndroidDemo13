@@ -1,0 +1,18 @@
+#Internal package file, do not edit.
+#Tue Sep 26 18:18:02 CST 2017
+1.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+4.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+1.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\res\\menu\\main.xml
+4.set=ANDROID_RESOURCE
+2.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+3.set=ANDROID_RESOURCE
+2.set=ANDROID_RESOURCE
+2.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\ic_launcher.png
+count=5
+1.set=ANDROID_RESOURCE
+3.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+0.set=ANDROID_RESOURCE
+0.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_
+3.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+0.file=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_main.xml
+4.base=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\res\\resources-debug.ap_

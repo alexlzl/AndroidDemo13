@@ -1,0 +1,7 @@
+#Tue Sep 26 18:18:03 CST 2017
+base.0=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6b4241fbd6098e1be77afb43e61b2384750dd43a
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_86de50c47fca8081ef8ac9a3df4ca220cd755006\\classes.dex
+base.1=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_86de50c47fca8081ef8ac9a3df4ca220cd755006
+file.0=F\:\\Demo\\Demo4\\Touch处理2\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6b4241fbd6098e1be77afb43e61b2384750dd43a\\classes.dex
