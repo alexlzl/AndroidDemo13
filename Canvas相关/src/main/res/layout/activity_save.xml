@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.DrawBitmapActivity"
-    android:orientation="vertical">
-    <com.example.myapplication.DrawBitmap
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"/>
+    tools:context="com.example.myapplication.SaveActivity">
+    <com.example.myapplication.SaveView
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
 
 </LinearLayout>

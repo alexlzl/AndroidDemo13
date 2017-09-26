@@ -26,4 +26,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DrawBitmapActivity.class);
         startActivity(intent);
     }
+
+    public void save(View view){
+        Intent intent = new Intent(this, SaveActivity.class);
+        startActivity(intent);
+    }
+    public void Region(View view){
+        Intent intent = new Intent(this, RegionActivity.class);
+        startActivity(intent);
+    }
+
+    public void Clip(View view){
+        Intent intent = new Intent(this, ClipActivity.class);
+        startActivity(intent);
+    }
 }

@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".DrawArcActivity" />
-        <activity android:name=".DrawBitmapActivity"></activity>
+        <activity android:name=".DrawBitmapActivity" />
+        <activity android:name=".SaveActivity" />
+        <activity android:name=".RegionActivity" />
+        <activity android:name=".ClipActivity"></activity>
     </application>
 
 </manifest>
